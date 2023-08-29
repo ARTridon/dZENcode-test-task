@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { Hydrate } from '@/components/HydrateClient';
 import { Layout } from '@/components/Layout';
-import { OrdersPage as OrdersPageWrapper } from '@/components/OrdersPage';
+import { OrdersPage as OrdersPageWrapper } from '@/components/OrdersPage/OrdersPage';
 import { authOptions } from '@/config/authConfig';
 import { Api } from '@/graphQl';
 import { queryClient } from '@/lib/queryClient';

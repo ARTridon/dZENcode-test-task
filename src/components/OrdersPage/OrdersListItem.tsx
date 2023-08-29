@@ -10,6 +10,7 @@ import { toggleCollapse } from '@/redux/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { TOrdersAttributes } from '@/types/ordersType';
 import { cn } from '@/utils/cn';
+import {dateFormat} from '@/utils/dateFormat';
 
 export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
   const dispatch = useAppDispatch();
@@ -55,7 +56,8 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
           </div>
           {!active && (
             <div className='flex flex-col pl-5'>
-              {/* <h1 className='text-lg'>{order.attributes.createdAt}</h1> */}
+              <p className='text-lg'>{dateFormat(order.attributes.createdAt,"DD/MM/YYYY")}</p>
+              <p className='text-lg'>{dateFormat(order.attributes.createdAt,"HH:mm:ss")}</p>
             </div>
           )}
         </div>
