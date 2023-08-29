@@ -1,20 +1,32 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 
 import { Transition } from '@headlessui/react';
 import { IoTrashSharp } from 'react-icons/io5';
 
 import { useProductDeleteAction } from '@/hooks/client-actions';
-import { useAppSelector } from '@/redux/store';
+import { useAppSelector,useAppDispatch } from '@/redux/store';
+import { Alert } from '@/ui/Alert';
 import { cn } from '@/utils/cn';
+import { toggleCollapse } from '@/redux/slices/ordersSlice';
 
 export const OrdersProductsList = () => {
-  const { products, active, orderTitle } = useAppSelector(
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const { products, active, orderTitle,orderId } = useAppSelector(
     (state) => state.orderCollapseProductList
   );
 
-  const { mutate: removeProductsById } = useProductDeleteAction();
+  const { mutate: removeProductsById, isSuccess } = useProductDeleteAction();
+  
+  useEffect(() => {
+    if (isSuccess) {
+      setIsOpen(false);
+    }
+  }, [isSuccess]);
 
   return (
     <Transition
@@ -66,8 +78,45 @@ export const OrdersProductsList = () => {
 
             <IoTrashSharp
               className='w-4 h-4 cursor-pointer text-gray-500'
-              onClick={() => removeProductsById({ id: i.id })}
+              onClick={() => setIsOpen(true)}
             />
+            <Alert
+              isOpen={isOpen}
+              close={() => setIsOpen(false)}
+              title={'You definitely want to remove this product?'}
+              handler={() => {removeProductsById({ id: i.id })
+              dispatch(toggleCollapse({
+                active: true,
+                products: products.filter((item) => item.id !== i.id),
+                orderTitle,
+                orderId,
+              }))
+            
+            }}
+            >
+              <div className='flex items-center justify-start gap-2'>
+                <div
+                  className={cn(
+                    'w-4 h-4 rounded-full',
+                    i.attributes.availability ? 'bg-red-600' : 'bg-green-600'
+                  )}
+                />
+                {i.attributes.photo.data.attributes.url && (
+                  <Image
+                    src={i.attributes.photo.data.attributes.url}
+                    height={80}
+                    width={80}
+                    alt=''
+                  />
+                )}
+                <div className='flex flex-col items-start'>
+                  <p className=''>{i.attributes.title}</p>
+                  <p className='text-[#93a6b0] text-sm items-start'>
+                    {i.attributes.serialNumber}
+                  </p>
+                </div>
+              </div>
+            </Alert>
           </div>
         ))
       ) : (

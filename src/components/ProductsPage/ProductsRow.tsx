@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 import Image from 'next/image';
 
@@ -18,9 +18,16 @@ type TProductsRowProps = {
 };
 
 export const ProductsRow = ({ product }: TProductsRowProps) => {
-  const { mutate: removeProductsById } = useProductDeleteAction();
+  const { mutate: removeProductsById ,isSuccess} = useProductDeleteAction();
   const [isOpen, setIsOpen] = useState(false);
   const imgSrc = product.attributes.photo.data.attributes.url;
+
+  useEffect(()=>{
+    if(isSuccess){
+      setIsOpen(false)
+    }
+  },[isSuccess])
+
 
   return (
     <tr className='bg-white rounded-xl [&>td]:p-4'>
@@ -77,10 +84,24 @@ export const ProductsRow = ({ product }: TProductsRowProps) => {
         <Alert
           isOpen={isOpen}
           close={() => setIsOpen(false)}
-          title={'asdasd'}
+          title={'You definitely want to remove this product?'}
           handler={() => removeProductsById({ id: product.id })}
         >
-          <div>asdasd</div>
+          <div className='flex items-center justify-start gap-2'>
+            <div
+              className={cn(
+                'w-4 h-4 rounded-full',
+                product.attributes.availability ? 'bg-red-600' : 'bg-green-600'
+              )}
+            />
+            {imgSrc && <Image src={imgSrc} height={80} width={80} alt='' />}
+            <div className='flex flex-col items-start'>
+              <p className=''>{product.attributes.title}</p>
+              <p className='text-[#93a6b0] text-sm items-start'>
+                {product.attributes.serialNumber}
+              </p>
+            </div>
+          </div>
         </Alert>
       </td>
     </tr>

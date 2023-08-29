@@ -19,11 +19,13 @@ export const OrdersList = ({ orders }: TOrdersListProps) => {
 
   return (
     <div className={cn('w-full', active && 'grid grid-cols-3 p-6')}>
-      <div>
-        {orders?.map((order) => (
-          <OrdersListItem order={order} key={order.id} />
-        ))}
-      </div>
+      <table className='text-[#135164] w-full table-auto border-spacing-y-4 border-separate'>
+        <tbody>
+          {orders?.map((order) => (
+            <OrdersListItem order={order} key={order.id} />
+          ))}
+        </tbody>
+      </table>
       {active && (
         <div className='border-2 border-gray-300 rounded-xl  m-3 relative w-full col-span-2 bg-white'>
           <GrClose

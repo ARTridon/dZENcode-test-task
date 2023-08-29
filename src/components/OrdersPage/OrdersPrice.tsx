@@ -12,8 +12,8 @@ export const OrdersPrice = ({ products }: { products: TProductsData[] }) => {
   );
   return (
     <div>
-      <p>UAH{UAH}</p>
-      <p>USD{USD}</p>
+      <p>UAH {UAH}</p>
+      <p>USD {USD}</p>
     </div>
   );
 };
