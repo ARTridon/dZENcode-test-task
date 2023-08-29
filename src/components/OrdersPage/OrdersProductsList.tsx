@@ -60,7 +60,7 @@ export const OrdersProductsList = () => {
             <div className='grid grid-cols-6 gap-10 w-full items-center'>
               <div>
                 <Image
-                  className='max-w-[80px] max-h-[80px] object-cover object-center'
+                  className='max-w-[80px] max-h-[80px] object-contain object-center'
                   src={i.attributes.photo.data?.attributes?.url}
                   height={80}
                   width={80}

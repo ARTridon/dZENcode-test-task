@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 
 import { useAvataGetAction } from '@/hooks/client-actions';
 
-export const Navbar = () => {
+export const NavigationMenu = () => {
   const { data: session } = useSession();
 
   const { data } = useAvataGetAction({ id: session?.id as string });

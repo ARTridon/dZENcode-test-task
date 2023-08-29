@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/Layout/Navbar';
+import { NavigationMenu } from '@/components/Layout/NavigationMenu';
 import { TopMenu } from '@/components/Layout/TopMenu';
 
 type TLayout = {
@@ -10,7 +10,7 @@ export const Layout = ({ children }: TLayout) => {
     <main className=' overflow-hidden'>
       <TopMenu />
       <div className='flex items-start justify-start gap-4'>
-        <Navbar />
+        <NavigationMenu />
         {children}
       </div>
     </main>

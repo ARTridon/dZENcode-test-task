@@ -39,7 +39,7 @@ export const ProductsRow = ({ product }: TProductsRowProps) => {
           )}
         />
       </td>
-      <td>{imgSrc && <Image className='max-w-[80px] max-h-[80px] object-cover object-center' src={imgSrc} height={80} width={80} alt='' />}</td>
+      <td>{imgSrc && <Image className='max-w-[80px] max-h-[80px] object-contain object-center' src={imgSrc} height={80} width={80} alt='' />}</td>
       <td>
         <div className='flex flex-col items-start'>
           <p className=''>{product.attributes.title}</p>

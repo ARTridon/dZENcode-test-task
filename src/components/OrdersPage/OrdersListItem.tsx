@@ -12,7 +12,6 @@ import { toggleCollapse } from '@/redux/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { TOrdersAttributes } from '@/types/ordersType';
 import { Alert } from '@/ui/Alert';
-import { cn } from '@/utils/cn';
 import { dateFormat } from '@/utils/dateFormat';
 
 export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
