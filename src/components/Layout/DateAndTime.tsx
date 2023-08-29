@@ -3,11 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import dayjs from 'dayjs';
-import 'dayjs/locale/uk';
 
 import { Clock } from '@/components/Layout/Clock';
 
-dayjs.locale('uk');
 export const DateAndTime = () => {
   const [date, setDate] = useState(dayjs());
 
