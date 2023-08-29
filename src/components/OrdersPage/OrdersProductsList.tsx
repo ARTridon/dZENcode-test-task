@@ -8,20 +8,20 @@ import { Transition } from '@headlessui/react';
 import { IoTrashSharp } from 'react-icons/io5';
 
 import { useProductDeleteAction } from '@/hooks/client-actions';
-import { useAppSelector,useAppDispatch } from '@/redux/store';
+import { toggleCollapse } from '@/redux/slices/ordersSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Alert } from '@/ui/Alert';
 import { cn } from '@/utils/cn';
-import { toggleCollapse } from '@/redux/slices/ordersSlice';
 
 export const OrdersProductsList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const { products, active, orderTitle,orderId } = useAppSelector(
+  const { products, active, orderTitle, orderId } = useAppSelector(
     (state) => state.orderCollapseProductList
   );
 
   const { mutate: removeProductsById, isSuccess } = useProductDeleteAction();
-  
+
   useEffect(() => {
     if (isSuccess) {
       setIsOpen(false);
@@ -60,6 +60,7 @@ export const OrdersProductsList = () => {
             <div className='grid grid-cols-6 gap-10 w-full items-center'>
               <div>
                 <Image
+                  className='max-w-[80px] max-h-[80px] object-cover object-center'
                   src={i.attributes.photo.data?.attributes?.url}
                   height={80}
                   width={80}
@@ -84,15 +85,17 @@ export const OrdersProductsList = () => {
               isOpen={isOpen}
               close={() => setIsOpen(false)}
               title={'You definitely want to remove this product?'}
-              handler={() => {removeProductsById({ id: i.id })
-              dispatch(toggleCollapse({
-                active: true,
-                products: products.filter((item) => item.id !== i.id),
-                orderTitle,
-                orderId,
-              }))
-            
-            }}
+              handler={() => {
+                removeProductsById({ id: i.id });
+                dispatch(
+                  toggleCollapse({
+                    active: true,
+                    products: products.filter((item) => item.id !== i.id),
+                    orderTitle,
+                    orderId,
+                  })
+                );
+              }}
             >
               <div className='flex items-center justify-start gap-2'>
                 <div

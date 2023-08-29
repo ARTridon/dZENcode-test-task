@@ -74,7 +74,6 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
       </td>
       {!active && (
         <>
-          {' '}
           <td>
             <OrdersPrice products={order.attributes.products.data} />
           </td>
