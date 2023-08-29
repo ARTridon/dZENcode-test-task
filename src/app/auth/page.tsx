@@ -19,7 +19,7 @@ const authValidationSchema = z.object({
     }),
 });
 
-type typeAuthValidationSchema  =z.infer<typeof authValidationSchema>
+type typeAuthValidationSchema = z.infer<typeof authValidationSchema>;
 
 const AuthPage = () => {
   const {

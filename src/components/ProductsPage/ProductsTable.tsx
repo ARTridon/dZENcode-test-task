@@ -18,7 +18,6 @@ export const ProductsTable = () => {
             ))}
         </tbody>
       </table>
-      
     </div>
   );
 };

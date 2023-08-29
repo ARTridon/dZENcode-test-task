@@ -1,22 +1,33 @@
 'use client';
 
-import { ReactNode, Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import {Button} from '@/ui/Button';
+
+import { Button } from '@/ui/Button';
 
 type TAlerProps = {
-    isOpen: boolean;
-    close: () => void;
-    title: string;
-    children: ReactNode;
-    handler: () => void;
-}
+  isOpen: boolean;
+  close: () => void;
+  title: string;
+  children: ReactNode;
+  handler: () => void;
+};
 
-export const Alert = ({ isOpen, close,title,children ,handler}:TAlerProps) => {
+export const Alert = ({
+  isOpen,
+  close,
+  title,
+  children,
+  handler,
+}: TAlerProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as='div' className='fixed inset-0 z-50 overflow-y-auto ' onClose={close}>
+      <Dialog
+        as='div'
+        className='fixed inset-0 z-50 overflow-y-auto '
+        onClose={close}
+      >
         <div className='min-h-screen flex items-center justify-center '>
           <Transition.Child
             as={Fragment}
@@ -46,9 +57,7 @@ export const Alert = ({ isOpen, close,title,children ,handler}:TAlerProps) => {
               >
                 {title}
               </Dialog.Title>
-              <div className='mt-2 p-4'>
-                {children}
-              </div>
+              <div className='mt-2 p-4'>{children}</div>
 
               <div className='mt-4 flex items-center gap-3 justify-end bg-green-600 p-4'>
                 <Button
@@ -59,11 +68,7 @@ export const Alert = ({ isOpen, close,title,children ,handler}:TAlerProps) => {
                 >
                   close
                 </Button>
-                <Button
-                  type='button'
-                  onClick={handler}
-                  className='uppercase'
-                >
+                <Button type='button' onClick={handler} className='uppercase'>
                   delete
                 </Button>
               </div>
@@ -74,4 +79,3 @@ export const Alert = ({ isOpen, close,title,children ,handler}:TAlerProps) => {
     </Transition>
   );
 };
-

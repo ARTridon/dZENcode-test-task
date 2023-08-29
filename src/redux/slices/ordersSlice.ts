@@ -1,16 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { TProductsData } from '@/types/productsType';
-
 
 type TOrderCollapseProductListState = {
   active: boolean;
   products: TProductsData[];
   orderTitle: string;
   orderId: string;
-}
-
-
+};
 
 const initialState: TOrderCollapseProductListState = {
   active: false,
@@ -23,7 +20,10 @@ const orderCollapseProductList = createSlice({
   name: 'order-collapse-product-list',
   initialState,
   reducers: {
-    toggleCollapse: (state, action: PayloadAction<TOrderCollapseProductListState>) => {
+    toggleCollapse: (
+      state,
+      action: PayloadAction<TOrderCollapseProductListState>
+    ) => {
       state.active = action.payload.active;
       state.products = action.payload.products;
       state.orderTitle = action.payload.orderTitle;

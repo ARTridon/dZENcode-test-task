@@ -1,8 +1,6 @@
 import { Inter } from 'next/font/google';
 
 // import type { Metadata } from 'next';
-
-
 import { ProvidersWrapper } from '@/components/ProvidersWrapper';
 import { RefreshWraper } from '@/components/RefreshWraper';
 
@@ -24,9 +22,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <RefreshWraper>
-          <ProvidersWrapper>
-           {children}
-          </ProvidersWrapper>
+          <ProvidersWrapper>{children}</ProvidersWrapper>
         </RefreshWraper>
       </body>
     </html>

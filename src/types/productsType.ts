@@ -1,7 +1,6 @@
 export type TProductsRes = {
   products: TProducts;
-}
-
+};
 
 export type TProducts = {
   data: TProductsData[];

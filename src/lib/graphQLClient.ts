@@ -1,4 +1,5 @@
 import { GraphQLClient, RequestOptions } from 'graphql-request';
+
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const graphQLClient = ({
   jwt,
@@ -22,11 +23,11 @@ export const graphQLClient = ({
   }
 
   if (variables) {
-    return new GraphQLClient(NEXT_PUBLIC_API_URL+'/graphql', {
+    return new GraphQLClient(NEXT_PUBLIC_API_URL + '/graphql', {
       headers,
     }).request(gql, variables);
   }
-  return new GraphQLClient(NEXT_PUBLIC_API_URL+'/graphql', {
+  return new GraphQLClient(NEXT_PUBLIC_API_URL + '/graphql', {
     headers,
   }).request(gql);
 };

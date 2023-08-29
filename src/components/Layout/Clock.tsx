@@ -1,5 +1,3 @@
-
-
 export const Clock = ({ time }: { time: string }) => {
   return (
     <div className='flex gap-1 stroke-green-500 '>

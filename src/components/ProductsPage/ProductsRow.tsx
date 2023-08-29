@@ -17,12 +17,10 @@ type TProductsRowProps = {
   index: number;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export const ProductsRow = ({ product }: TProductsRowProps) => {
   const { mutate: removeProductsById } = useProductDeleteAction();
   const [isOpen, setIsOpen] = useState(false);
-  const imgSrc = API_URL + product.attributes.photo.data.attributes.url;
+  const imgSrc = product.attributes.photo.data.attributes.url;
 
   return (
     <tr className='bg-white rounded-xl [&>td]:p-4'>
@@ -65,7 +63,9 @@ export const ProductsRow = ({ product }: TProductsRowProps) => {
 
       <td>
         <p className='text-sm text-[#2e3e45] line-clamp-2 text-ellipsis'>
-          {product.attributes.product.data?product.attributes.product.data.attributes.title:"no order yet"}
+          {product.attributes.product.data
+            ? product.attributes.product.data.attributes.title
+            : 'no order yet'}
         </p>
       </td>
       <td className='text-sm text-[#2e3e45]'></td>

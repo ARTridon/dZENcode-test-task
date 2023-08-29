@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment,useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { Listbox, Transition } from '@headlessui/react';
 
@@ -8,10 +8,15 @@ type TDropDownProps = {
   list: string[];
   selected: string;
   setSelecte: (value: string) => void;
-  afretChange?:(value: string) => void;
+  afretChange?: (value: string) => void;
 };
 
-export const DropDown = ({ list, selected, setSelecte,afretChange }: TDropDownProps) => {
+export const DropDown = ({
+  list,
+  selected,
+  setSelecte,
+  afretChange,
+}: TDropDownProps) => {
   return (
     <Listbox value={selected} onChange={setSelecte} defaultValue='All'>
       <div className='relative mt-1'>
@@ -42,7 +47,7 @@ export const DropDown = ({ list, selected, setSelecte,afretChange }: TDropDownPr
                     }`
                   }
                   value={person}
-                  onClick={() =>afretChange? afretChange(person):null}
+                  onClick={() => (afretChange ? afretChange(person) : null)}
                 >
                   {({ selected }) => (
                     <>

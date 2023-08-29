@@ -1,8 +1,7 @@
 import gql from 'graphql-tag';
 
+import { productAttributesFragment } from '@/graphQl/fragments/product.fragment';
 import { graphQLClient } from '@/lib/graphQLClient';
-
-import {productAttributesFragment} from '@/graphQl/fragments/product.fragment';
 
 export const orders = {
   getOrders: ({ jwt }: { jwt: string }) => {

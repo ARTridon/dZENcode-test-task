@@ -3,4 +3,4 @@ import { orders } from './drivers/orders.driver';
 import { products } from './drivers/products.driver';
 import { types } from './drivers/types.driver';
 
-export const Api = { orders, products, auth,types };
+export const Api = { orders, products, auth, types };

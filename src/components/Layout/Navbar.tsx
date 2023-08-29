@@ -10,8 +10,6 @@ import { useSession } from 'next-auth/react';
 
 import { useAvataGetAction } from '@/hooks/client-actions';
 
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export const Navbar = () => {
   const { data: session } = useSession();
 
@@ -25,9 +23,7 @@ export const Navbar = () => {
       <div className='px-[2em] shrink-1'>
         <Avatar
           avatarUrl={
-            avatar?.data
-              ? NEXT_PUBLIC_API_URL + avatar.data!.attributes.url
-              : '/avatar-mock.svg'
+            avatar?.data ? avatar.data!.attributes.url : '/avatar-mock.svg'
           }
         />
       </div>

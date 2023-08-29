@@ -9,8 +9,6 @@ import { useProductDeleteAction } from '@/hooks/client-actions';
 import { useAppSelector } from '@/redux/store';
 import { cn } from '@/utils/cn';
 
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export const OrdersProductsList = () => {
   const { products, active, orderTitle } = useAppSelector(
     (state) => state.orderCollapseProductList
@@ -38,42 +36,43 @@ export const OrdersProductsList = () => {
         {orderTitle}
       </h3>
 
-      {products.length?products.map((i, index) => (
-        <div
-          className={cn(
-            'flex items-center justify-between gap-2 w-full  border-b border-gray-300 p-3 px-6',
-            !index && 'border-t'
-          )}
-          key={i.id}
-        >
-          <div className='grid grid-cols-6 gap-10 w-full items-center'>
-            <div>
-              <Image
-                src={
-                  NEXT_PUBLIC_API_URL +
-                  i.attributes.photo.data?.attributes?.url
-                }
-                height={80}
-                width={80}
-                alt='product photo'
-              />
+      {products.length ? (
+        products.map((i, index) => (
+          <div
+            className={cn(
+              'flex items-center justify-between gap-2 w-full  border-b border-gray-300 p-3 px-6',
+              !index && 'border-t'
+            )}
+            key={i.id}
+          >
+            <div className='grid grid-cols-6 gap-10 w-full items-center'>
+              <div>
+                <Image
+                  src={i.attributes.photo.data?.attributes?.url}
+                  height={80}
+                  width={80}
+                  alt='product photo'
+                />
+              </div>
+
+              <div className='col-span-3'>
+                <p className='underline '>{i.attributes.title}</p>
+                <p>{i.attributes.serialNumber}</p>
+              </div>
+
+              <p>{i.attributes.type.data.attributes.name}</p>
+              <p>{i.attributes.specification.data.attributes.name}</p>
             </div>
 
-            <div className='col-span-3'>
-              <p className='underline '>{i.attributes.title}</p>
-              <p>{i.attributes.serialNumber}</p>
-            </div>
-
-            <p>{i.attributes.type.data.attributes.name}</p>
-            <p>{i.attributes.specification.data.attributes.name}</p>
+            <IoTrashSharp
+              className='w-4 h-4 cursor-pointer text-gray-500'
+              onClick={() => removeProductsById({ id: i.id })}
+            />
           </div>
-
-          <IoTrashSharp
-            className='w-4 h-4 cursor-pointer text-gray-500'
-            onClick={() => removeProductsById({ id: i.id })}
-          />
-        </div>
-      )):<p className='text-center text-gray-500 py-4'>No products</p>}
+        ))
+      ) : (
+        <p className='text-center text-gray-500 py-4'>No products</p>
+      )}
     </Transition>
   );
 };

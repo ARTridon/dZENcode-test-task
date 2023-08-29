@@ -7,7 +7,7 @@ export type TUsersPermissions = {
             attributes: {
               url: string;
             };
-          }|null;
+          } | null;
         };
       };
     };

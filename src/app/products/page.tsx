@@ -10,7 +10,6 @@ import { authOptions } from '@/config/authConfig';
 import { Api } from '@/graphQl';
 import { queryClient } from '@/lib/queryClient';
 
-
 export const revalidate = 60;
 
 const dehydrateProducts = async () => {
@@ -42,7 +41,6 @@ const ProductsPage = async () => {
             <ProductsTable />
           </div>
         </section>
-      
       </Layout>
     </Hydrate>
   );

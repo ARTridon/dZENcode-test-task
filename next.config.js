@@ -1,9 +1,7 @@
-const { NEXT_PUBLIC_API_URL } = process.env;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [NEXT_PUBLIC_API_URL,'127.0.0.1'],
+    domains: ['test-task.fra1.digitaloceanspaces.com'],
   },
   async redirects() {
     return [

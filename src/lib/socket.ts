@@ -1,3 +1,4 @@
 import socket from 'socket.io-client';
 
-export const io = socket('http://localhost:1337');
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const io = socket(NEXT_PUBLIC_API_URL!);
