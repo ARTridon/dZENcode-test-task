@@ -9,6 +9,8 @@ import { useProductDeleteAction } from '@/hooks/client-actions';
 import { useAppSelector } from '@/redux/store';
 import { cn } from '@/utils/cn';
 
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const OrdersProductsList = () => {
   const { products, active, orderTitle } = useAppSelector(
     (state) => state.orderCollapseProductList
@@ -48,7 +50,7 @@ export const OrdersProductsList = () => {
             <div>
               <Image
                 src={
-                  'http://127.0.0.1:1337' +
+                  NEXT_PUBLIC_API_URL +
                   i.attributes.photo.data?.attributes?.url
                 }
                 height={80}
