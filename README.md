@@ -1,4 +1,4 @@
-#Dependencies
+#Dependencies#
 ##@headlessui/react and @headlessui/tailwindcss
 Version: ^1.7.17 and ^0.2.0 respectively
 Description: These packages provide accessible and reusable UI components for building user interfaces with Tailwind CSS.
