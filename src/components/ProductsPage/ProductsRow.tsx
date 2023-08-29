@@ -65,7 +65,7 @@ export const ProductsRow = ({ product }: TProductsRowProps) => {
 
       <td>
         <p className='text-sm text-[#2e3e45] line-clamp-2 text-ellipsis'>
-          {product.attributes.product.data.attributes.title}
+          {product.attributes.product.data?product.attributes.product.data.attributes.title:"no order yet"}
         </p>
       </td>
       <td className='text-sm text-[#2e3e45]'></td>

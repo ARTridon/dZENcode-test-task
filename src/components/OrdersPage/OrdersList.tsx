@@ -19,7 +19,7 @@ export const OrdersList = ({ orders }: TOrdersListProps) => {
 
   return (
     <div className={cn('w-full', active && 'grid grid-cols-3 p-6')}>
-      <div className={cn(active && 'max-w-sm')}>
+      <div >
         {orders?.map((order) => <OrdersListItem order={order} key={order.id} />)}
       </div>
       {active && (
@@ -28,7 +28,7 @@ export const OrdersList = ({ orders }: TOrdersListProps) => {
             className='absolute -top-2 -right-2 w-10 h-10 p-3 cursor-pointer bg-white rounded-full'
             onClick={() =>
               dispatch(
-                toggleCollapse({ active: false, products: [], orderTitle: '' })
+                toggleCollapse({ active: false, products: [], orderTitle: '', orderId: '' })
               )
             }
           />

@@ -51,6 +51,23 @@ export const useProductDeleteAction = () => {
     {
       onSuccess: () => {
         queryCache.invalidateQueries({ queryKey: ['products', session?.jwt] });
+        queryCache.invalidateQueries({ queryKey: ['orders', session?.jwt] });
+      },
+      onError: (error) => console.log(error),
+    }
+  );
+  return { ...mutation };
+};
+export const useOrderdDeleteAction = () => {
+  const { data: session } = useSession();
+  const queryCache = useQueryClient();
+
+  const mutation = useMutation(
+    ({ id }: { id: string }) =>
+      Api.orders.deleteOrder({ id, jwt: session?.jwt as string }),
+    {
+      onSuccess: () => {
+        queryCache.invalidateQueries({ queryKey: ['orders'] });
       },
       onError: (error) => console.log(error),
     }

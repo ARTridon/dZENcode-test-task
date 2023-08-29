@@ -7,6 +7,7 @@ type TOrderCollapseProductListState = {
   active: boolean;
   products: TProductsData[];
   orderTitle: string;
+  orderId: string;
 }
 
 
@@ -15,6 +16,7 @@ const initialState: TOrderCollapseProductListState = {
   active: false,
   products: [],
   orderTitle: '',
+  orderId: '',
 };
 
 const orderCollapseProductList = createSlice({
@@ -25,6 +27,7 @@ const orderCollapseProductList = createSlice({
       state.active = action.payload.active;
       state.products = action.payload.products;
       state.orderTitle = action.payload.orderTitle;
+      state.orderId = action.payload.orderId;
     },
   },
 });

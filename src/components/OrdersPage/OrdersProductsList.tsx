@@ -3,11 +3,9 @@
 import Image from 'next/image';
 
 import { Transition } from '@headlessui/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
 import { IoTrashSharp } from 'react-icons/io5';
 
-import { Api } from '@/graphQl';
+import { useProductDeleteAction } from '@/hooks/client-actions';
 import { useAppSelector } from '@/redux/store';
 import { cn } from '@/utils/cn';
 
@@ -16,19 +14,7 @@ export const OrdersProductsList = () => {
     (state) => state.orderCollapseProductList
   );
 
-  const { data: session } = useSession();
-  const queryCache = useQueryClient();
-
-  const { mutate: removeProductsById } = useMutation(
-    ({ id }: { id: string }) =>
-      Api.products.delete({ id, jwt: session?.jwt as string }),
-    {
-      onSuccess: () => {
-        queryCache.invalidateQueries({ queryKey: ['orders', session?.jwt] });
-      },
-      onError: (error) => console.log(error),
-    }
-  );
+  const { mutate: removeProductsById } = useProductDeleteAction();
 
   return (
     <Transition
@@ -50,7 +36,7 @@ export const OrdersProductsList = () => {
         {orderTitle}
       </h3>
 
-      {products.map((i, index) => (
+      {products.length?products.map((i, index) => (
         <div
           className={cn(
             'flex items-center justify-between gap-2 w-full  border-b border-gray-300 p-3 px-6',
@@ -75,7 +61,7 @@ export const OrdersProductsList = () => {
               <p className='underline '>{i.attributes.title}</p>
               <p>{i.attributes.serialNumber}</p>
             </div>
-            
+
             <p>{i.attributes.type.data.attributes.name}</p>
             <p>{i.attributes.specification.data.attributes.name}</p>
           </div>
@@ -85,7 +71,7 @@ export const OrdersProductsList = () => {
             onClick={() => removeProductsById({ id: i.id })}
           />
         </div>
-      ))}
+      )):<p className='text-center text-gray-500 py-4'>No products</p>}
     </Transition>
   );
 };

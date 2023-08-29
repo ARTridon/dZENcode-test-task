@@ -1,39 +1,28 @@
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
+import { IoIosArrowForward } from 'react-icons/io';
 import { IoTrashSharp } from 'react-icons/io5';
 import { TfiMenuAlt } from 'react-icons/tfi';
 
 import { OrdersPrice } from '@/components/OrdersPage/OrdersPrice';
-import { Api } from '@/graphQl';
+import { useOrderdDeleteAction } from '@/hooks/client-actions';
 import { toggleCollapse } from '@/redux/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { TOrdersAttributes } from '@/types/ordersType';
 import { cn } from '@/utils/cn';
 
-import { TOrdersAttributes} from '@/types/ordersType';
-
-export const OrdersListItem = ({ order }:{order:TOrdersAttributes}) => {
-  const queryCache = useQueryClient();
-  const { data: session } = useSession();
+export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
   const dispatch = useAppDispatch();
-  const { active } = useAppSelector((state) => state.orderCollapseProductList);
-
-  const { mutate: removeOrderById } = useMutation(
-    ({ id }: { id: string }) =>
-      Api.orders.deleteOrder({ id, jwt: session?.jwt as string }),
-    {
-      onSuccess: () => {
-        queryCache.invalidateQueries({ queryKey: ['orders'] });
-      },
-      onError: (error) => console.log(error),
-    }
+  const { active, orderId } = useAppSelector(
+    (state) => state.orderCollapseProductList
   );
+
+  const { mutate: removeOrderById } = useOrderdDeleteAction();
   return (
     <div
       key={order.id}
       className={cn(
-        'border-2 border-gray-300 rounded-md p-3 m-3',
+        'border-2 border-gray-300 rounded-md p-3 m-3 bg-white relative',
         active && 'flex items-center justify-between'
       )}
     >
@@ -53,6 +42,7 @@ export const OrdersListItem = ({ order }:{order:TOrdersAttributes}) => {
                   active: true,
                   products: order.attributes.products.data,
                   orderTitle: order.attributes.title,
+                  orderId: order.id,
                 })
               )
             }
@@ -79,6 +69,11 @@ export const OrdersListItem = ({ order }:{order:TOrdersAttributes}) => {
               }}
             />
           </>
+        )}
+        {active && orderId === order.id && (
+          <div className='absolute top-0 bottom-0 right-0 w-10 flex items-center justify-center p-3 bg-gray-500 rounded-r-md'>
+            <IoIosArrowForward className='text-white w-6 h-6 ' />
+          </div>
         )}
       </div>
     </div>

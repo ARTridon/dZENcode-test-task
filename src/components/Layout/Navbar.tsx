@@ -2,23 +2,34 @@
 
 import { ReactNode } from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {useAvataGetAction} from '@/hooks/client-actions'
+
 import { useSession } from 'next-auth/react';
+
+import { useAvataGetAction } from '@/hooks/client-actions';
+
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const Navbar = () => {
   const { data: session } = useSession();
 
-  const {data} = useAvataGetAction({id:session?.id as string})
-console.log(data);
+  const { data } = useAvataGetAction({ id: session?.id as string });
+  const avatar = data?.usersPermissionsUser.data.attributes.avatar;
 
   return (
     <aside className='max-w-[150px] w-full h-screen flex flex-col text-center shadow-2xl col-span-1'>
       <div className='basis-[4em] grow-0 shrink-1'></div>
 
       <div className='px-[2em] shrink-1'>
-        {/* <Avatar avatarUrl={session?.user.image as string} /> */}
+        <Avatar
+          avatarUrl={
+            avatar?.data
+              ? NEXT_PUBLIC_API_URL + avatar.data!.attributes.url
+              : '/avatar-mock.svg'
+          }
+        />
       </div>
 
       <div className='basis-20 grow-0 shrink-1'></div>
@@ -33,14 +44,15 @@ console.log(data);
 };
 
 const Avatar = ({ avatarUrl }: { avatarUrl: string }) => {
-  const avatar = (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className='rounded-full' src={avatarUrl} alt='Avatar' />
-  );
-
   return (
     <div className='w-full h-fit relative'>
-      {avatar}
+      <Image
+        className='rounded-full h-20 w-20 object-cover object-center'
+        src={avatarUrl}
+        alt='Avatar'
+        width={80}
+        height={80}
+      />
       <span className='absolute bottom-0 right-0 transform translate-y-1/5 w-12 h-12 bg-white shadow-2xl shadow-black rounded-full'>
         <div>
           <svg
