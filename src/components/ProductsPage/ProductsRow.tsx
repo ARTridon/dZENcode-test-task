@@ -35,7 +35,7 @@ export const ProductsRow = ({ product }: TProductsRowProps) => {
         <div
           className={cn(
             'w-4 h-4 rounded-full',
-            product.attributes.availability ? 'bg-red-600' : 'bg-green-600'
+            product.attributes.availability ? 'bg-green-300' : ' bg-red-300'
           )}
         />
       </td>

@@ -30,7 +30,7 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
     }
   }, [isSuccess]);
   return (
-    <tr className={cn('  bg-white relative [&>td]:!p-2', active && '')}>
+    <tr className={'bg-white relative [&>td]:!p-2'}>
       <td className='rounded-l-lg'>
         {!active && (
           <h3 className='underline tracking-widest line-clamp-2 text-ellipsis '>
@@ -39,7 +39,6 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
         )}
       </td>
       <td>
-        {' '}
         <div className='flex items-center'>
           <div
             className='flex items-center w-8 h-8 rounded-full ring-2 p-1 ring-gray-400 cursor-pointer'
@@ -63,18 +62,19 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
         </div>
       </td>
 
+      <td>
+        <div className='flex flex-col'>
+          <p className='text-lg'>
+            {dateFormat(order.attributes.createdAt, 'DD/MM/YYYY')}
+          </p>
+          <p className='text-lg'>
+            {dateFormat(order.attributes.createdAt, 'HH:mm:ss')}
+          </p>
+        </div>
+      </td>
       {!active && (
         <>
-          <td>
-            <div className='flex flex-col'>
-              <p className='text-lg'>
-                {dateFormat(order.attributes.createdAt, 'DD/MM/YYYY')}
-              </p>
-              <p className='text-lg'>
-                {dateFormat(order.attributes.createdAt, 'HH:mm:ss')}
-              </p>
-            </div>
-          </td>
+          {' '}
           <td>
             <OrdersPrice products={order.attributes.products.data} />
           </td>
