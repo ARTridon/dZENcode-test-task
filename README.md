@@ -1,3 +1,7 @@
+# Test User
+email: asd@asd.asd
+pass: asdasdasd
+
 # Start Coding
 1. cp .env.example .env
 2. docker-compose up -d
