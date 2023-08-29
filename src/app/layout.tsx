@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <RefreshWraper>
-          <ProvidersWrapper>{children}</ProvidersWrapper>
-        </RefreshWraper>
+        <ProvidersWrapper>
+          <RefreshWraper>{children} </RefreshWraper>
+        </ProvidersWrapper>
       </body>
     </html>
   );

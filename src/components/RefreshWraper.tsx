@@ -1,31 +1,30 @@
+'use client';
+
 import { type ReactNode } from 'react';
+import { useEffect } from 'react';
 
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
-import { type NextPage } from 'next';
-import { getServerSession } from 'next-auth';
-
-import { authOptions } from '@/config/authConfig';
+import { useSession } from 'next-auth/react';
 
 type TRefreshWraper = {
   children: ReactNode;
 };
 
-const refresh = async () => {
-  const authPath = headers().get('x-invoke-path') === '/auth';
+export const RefreshWraper = ({ children }: TRefreshWraper) => {
+  const pathname = usePathname();
+  const { push } = useRouter();
 
-  const session = await getServerSession(authOptions);
-  // if (!session && !authPath) {
-  //   redirect('/auth');
-  // }
-  // if (session && authPath) {
-  //   redirect('/orders');
-  // }
-};
-
-export const RefreshWraper: NextPage<TRefreshWraper> = async ({ children }) => {
-  await refresh();
+  
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    if (status === 'authenticated'&& pathname === '/auth') {
+      push('/orders');
+    }
+    if (status === 'unauthenticated'&& pathname !== '/auth') {
+      push('/auth');
+    }
+  }, [pathname, session, status]);
 
   return <>{children}</>;
 };
