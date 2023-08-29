@@ -2,6 +2,11 @@
 1. cp .env.example .env
 2. docker-compose up -d
 
+# if you have problems with the docker 
+1. cp .env.example .env
+2. npm i
+3. npm run dev
+
 # Dependencies
 ## @headlessui/react and @headlessui/tailwindcss
 Version: ^1.7.17 and ^0.2.0 respectively
