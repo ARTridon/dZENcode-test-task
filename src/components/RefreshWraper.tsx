@@ -16,12 +16,12 @@ const refresh = async () => {
   const authPath = headers().get('x-invoke-path') === '/auth';
 
   const session = await getServerSession(authOptions);
-  if (!session && !authPath) {
-    redirect('/auth');
-  }
-  if (session && authPath) {
-    redirect('/orders');
-  }
+  // if (!session && !authPath) {
+  //   redirect('/auth');
+  // }
+  // if (session && authPath) {
+  //   redirect('/orders');
+  // }
 };
 
 export const RefreshWraper: NextPage<TRefreshWraper> = async ({ children }) => {
