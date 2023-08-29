@@ -1,3 +1,7 @@
+# Start Coding
+1. cp .env.example .env
+2. docker-compose up -d
+
 # Dependencies
 ## @headlessui/react and @headlessui/tailwindcss
 Version: ^1.7.17 and ^0.2.0 respectively
