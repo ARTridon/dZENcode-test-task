@@ -31,14 +31,11 @@ export const dehydrateProductsAction = async () => {
   return dehydrate(queryClient);
 };
 
-export const authAction = async ({
+export const authAction = ({
   identifier,
   password,
 }: typeAuthValidationSchema) => {
-  const { login }: { login: TLoginResponse } = await queryClient.fetchQuery(
-    ['login'],
-    () => Api.auth.login({ identifier, password })
+  return queryClient.fetchQuery(['login'], () =>
+    Api.auth.login({ identifier, password })
   );
-
-  return login;
 };

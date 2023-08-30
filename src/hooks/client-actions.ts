@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
 import { Api } from '@/graphQl';
@@ -10,9 +15,15 @@ export const useProductsGetAction = () => {
   const { data: session } = useSession();
   const queryCache = useQueryClient();
 
-  const query = useQuery<Promise<unknown>, Error, TProductsRes>(
+  const query: UseQueryResult<TProductsRes, Error> = useQuery<
+    TProductsRes,
+    Error
+  >(
     ['products', session?.jwt],
-    () => Api.products.get({ jwt: session?.jwt as string }),
+    () =>
+      Api.products.get({
+        jwt: session?.jwt as string,
+      }) as Promise<TProductsRes>,
     {
       initialData: queryCache.getQueryData(['products', session?.jwt]),
       enabled: !!session?.jwt,
@@ -25,13 +36,16 @@ export const useProductsGetWithFilterAction = ({ eq }: { eq: string }) => {
   const { data: session } = useSession();
   const queryCache = useQueryClient();
 
-  const query = useQuery<Promise<unknown>, Error, TProductsRes>(
+  const query: UseQueryResult<TProductsRes, Error> = useQuery<
+    TProductsRes,
+    Error
+  >(
     ['products', session?.jwt],
     () =>
       Api.products.getWithFilter({
         jwt: session?.jwt as string,
         eq,
-      }),
+      }) as Promise<TProductsRes>,
     {
       initialData: queryCache.getQueryData(['products', session?.jwt]),
       enabled: !!session?.jwt && eq !== 'All',
@@ -88,12 +102,12 @@ export const useOrdersGetAction = () => {
   const { data: session } = useSession();
   const queryCache = useQueryClient();
 
-  const query = useQuery<Promise<unknown>, Error, TOrders>(
+  const query: UseQueryResult<TOrders, Error> = useQuery<TOrders, Error>(
     ['orders', session?.jwt],
     async () =>
       Api.orders.getOrders({
         jwt: session?.jwt as string,
-      }),
+      }) as Promise<TOrders>,
     {
       initialData: () => {
         return queryCache.getQueryData(['orders', session?.jwt]);
@@ -118,12 +132,12 @@ export const useTypesGetAction = () => {
   const { data: session } = useSession();
   const queryCache = useQueryClient();
 
-  const query = useQuery<Promise<unknown>, Error, TTypes>(
+  const query: UseQueryResult<TTypes, Error> = useQuery<TTypes, Error>(
     ['types', session?.jwt],
     async () =>
       Api.types.get({
         jwt: session?.jwt as string,
-      }),
+      }) as Promise<TTypes>,
     {
       initialData: () => {
         return queryCache.getQueryData(['types', session?.jwt]);
@@ -138,13 +152,16 @@ export const useTypesGetAction = () => {
 export const useAvataGetAction = ({ id }: { id: string }) => {
   const { data: session } = useSession();
 
-  const query = useQuery<Promise<unknown>, Error, TUsersPermissions>(
+  const query: UseQueryResult<TUsersPermissions, Error> = useQuery<
+    TUsersPermissions,
+    Error
+  >(
     ['avatar', session?.jwt],
     async () =>
       Api.auth.getAvatar({
         jwt: session?.jwt as string,
         id,
-      }),
+      }) as Promise<TUsersPermissions>,
     {
       enabled: !!session?.jwt,
     }

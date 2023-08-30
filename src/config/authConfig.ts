@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
             login,
           }: {
             login: TLoginResponse;
-          } = authAction({ identifier, password });
+          } = await authAction({ identifier, password });
 
           return {
             jwt: login.jwt,
