@@ -27,7 +27,6 @@ export const Alert = ({
         as='div'
         className='fixed inset-0 z-50 overflow-y-auto '
         onClose={close}
-        
       >
         <div className='min-h-screen flex items-center justify-center '>
           <Transition.Child

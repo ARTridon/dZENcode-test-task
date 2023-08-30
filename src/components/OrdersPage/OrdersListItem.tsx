@@ -1,6 +1,6 @@
 'use client';
 
-import {type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoTrashSharp } from 'react-icons/io5';
@@ -16,9 +16,9 @@ import { dateFormat } from '@/utils/dateFormat';
 
 type TOrdersListItemProps = {
   order: TOrdersAttributes;
-}
+};
 
-export const OrdersListItem:FC<TOrdersListItemProps> = ({ order }) => {
+export const OrdersListItem: FC<TOrdersListItemProps> = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { active, orderId } = useAppSelector(
