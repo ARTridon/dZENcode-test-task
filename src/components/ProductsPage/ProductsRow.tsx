@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -14,13 +14,14 @@ import { toggleCollapse } from '@/redux/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { TProductsData } from '@/types/productsType';
 import { Alert } from '@/ui/Alert';
+import { cn } from '@/utils/cn';
 
 type TProductsRowProps = {
   product: TProductsData;
   shortView?: boolean;
 };
 
-export const ProductsRow = ({ product, shortView }: TProductsRowProps) => {
+export const ProductsRow: FC<TProductsRowProps> = ({ product, shortView }) => {
   const dispatch = useAppDispatch();
   const { products, orderTitle, orderId } = useAppSelector(
     (state) => state.orderCollapseProductList
@@ -51,16 +52,16 @@ export const ProductsRow = ({ product, shortView }: TProductsRowProps) => {
 
   const TitleAndSerialNumber = () => (
     <div className='flex flex-col items-start'>
-      <p className=''>{product.attributes.title}</p>
-      <p className='text-[#93a6b0] text-sm items-start'>
+      <p>{product.attributes.title}</p>
+      <p className='text-lime-900 text-sm items-start'>
         {product.attributes.serialNumber}
       </p>
     </div>
   );
 
   return (
-    <tr className='bg-white rounded-xl [&>td]:p-4'>
-      <td className='rounded-l-lg'>
+    <tr className='bg-white rounded [&>td]:p-4  [&>td]:border-t [&>td]:border-b [&>td]:border-gray-300'>
+      <td className={cn('rounded', !shortView && 'border-l-2')}>
         <ProductsAvailability availability={product.attributes.availability} />
       </td>
       <td>
@@ -83,26 +84,26 @@ export const ProductsRow = ({ product, shortView }: TProductsRowProps) => {
         </>
       )}
       <td>
-        <p className='text-sm text-[#2e3e45]'>
+        <p className='text-sm text-lime-900'>
           {product.attributes.isNew ? 'NEW' : 'USER'}
         </p>
       </td>
       {!shortView && (
-        <td className='text-[#2e3e45]'>
+        <td className='text-lime-900'>
           <PriceFormat price={product.attributes.price} />
         </td>
       )}
 
       {!shortView && (
         <td>
-          <p className='text-sm text-[#2e3e45] line-clamp-2 text-ellipsis'>
+          <p className='text-sm text-lime-900 line-clamp-2 text-ellipsis'>
             {product.attributes.product.data
               ? product.attributes.product.data.attributes.title
               : 'no order yet'}
           </p>
         </td>
       )}
-      <td className='rounded-r-lg'>
+      <td className={cn('rounded', !shortView && 'border-r-2')}>
         <IoTrashSharp
           className='w-4 h-4 cursor-pointer text-gray-500'
           onClick={() => setIsOpen(true)}

@@ -1,10 +1,12 @@
+import { type FC } from 'react';
+
 import { TProductsData } from '@/types/productsType';
 
-export const OrdersPriceAmount = ({
-  products,
-}: {
+type TProductsTableProps = {
   products: TProductsData[];
-}) => {
+};
+
+export const OrdersPriceAmount: FC<TProductsTableProps> = ({ products }) => {
   const { UAH, USD } = products.reduce(
     (acc, item) => {
       const price = item.attributes.price;

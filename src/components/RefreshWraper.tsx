@@ -1,7 +1,7 @@
 'use client';
 
-import { type ReactNode } from 'react';
-import { useEffect } from 'react';
+import 'react';
+import { type FC, type ReactNode, useEffect } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -11,7 +11,7 @@ type TRefreshWraper = {
   children: ReactNode;
 };
 
-export const RefreshWraper = ({ children }: TRefreshWraper) => {
+export const RefreshWraper: FC<TRefreshWraper> = ({ children }) => {
   const pathname = usePathname();
   const { push } = useRouter();
 

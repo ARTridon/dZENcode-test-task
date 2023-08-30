@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {type FC, useEffect, useState } from 'react';
 
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoTrashSharp } from 'react-icons/io5';
@@ -14,7 +14,11 @@ import { TOrdersAttributes } from '@/types/ordersType';
 import { Alert } from '@/ui/Alert';
 import { dateFormat } from '@/utils/dateFormat';
 
-export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
+type TOrdersListItemProps = {
+  order: TOrdersAttributes;
+}
+
+export const OrdersListItem:FC<TOrdersListItemProps> = ({ order }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { active, orderId } = useAppSelector(
@@ -37,8 +41,12 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
   );
 
   return (
-    <tr className={'bg-white relative [&>td]:!p-2'}>
-      <td className='rounded-l-lg'>
+    <tr
+      className={
+        'bg-white relative [&>td]:!p-2  [&>td]:border-t [&>td]:border-b [&>td]:border-gray-300'
+      }
+    >
+      <td className='rounded-l-lg border-l-2'>
         {!active && (
           <h3 className='underline tracking-widest line-clamp-2 text-ellipsis '>
             {order.attributes.title}
@@ -81,7 +89,7 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
           <td>
             <OrdersPriceAmount products={order.attributes.products.data} />
           </td>
-          <td className='rounded-r-lg'>
+          <td className='rounded-r-lg  border-r-2'>
             <IoTrashSharp
               className='w-4 h-4 cursor-pointer text-gray-500'
               onClick={() => setIsOpen(true)}
@@ -102,10 +110,10 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
       )}
 
       {active && (
-        <td className='rounded-r-lg relative bg-white w-auto'>
+        <td className='rounded-r-lg relative bg-white  border-r-2'>
           &nbsp;
           {orderId === order.id && (
-            <div className='absolute top-0 bottom-0 right-0 w-10 flex items-center justify-center p-3 bg-gray-500 rounded-r-md'>
+            <div className='absolute top-0 bottom-0 -right-0.5 w-10 flex items-center justify-center p-3 bg-gray-500 rounded-r-md'>
               <IoIosArrowForward className='text-white w-6 h-6 ' />
             </div>
           )}

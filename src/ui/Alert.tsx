@@ -27,6 +27,7 @@ export const Alert = ({
         as='div'
         className='fixed inset-0 z-50 overflow-y-auto '
         onClose={close}
+        
       >
         <div className='min-h-screen flex items-center justify-center '>
           <Transition.Child
@@ -50,7 +51,7 @@ export const Alert = ({
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='bg-white rounded-md max-w-md w-full  text-left shadow-xl transform transition-all divide-y'>
+            <div className='bg-white rounded max-w-md w-full  text-left shadow-xl transform transition-all divide-y'>
               <Dialog.Title
                 as='h3'
                 className='text-lg font-medium leading-6 text-gray-900 p-4'
@@ -59,7 +60,7 @@ export const Alert = ({
               </Dialog.Title>
               <div className='mt-2 p-4'>{children}</div>
 
-              <div className='mt-4 flex items-center gap-3 justify-end bg-green-600 p-4'>
+              <div className='mt-4 flex items-center gap-3 justify-end bg-green-500 p-4'>
                 <Button
                   type='button'
                   variant={'outline'}
