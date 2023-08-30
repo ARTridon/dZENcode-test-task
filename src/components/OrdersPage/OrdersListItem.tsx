@@ -6,7 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { IoTrashSharp } from 'react-icons/io5';
 import { TfiMenuAlt } from 'react-icons/tfi';
 
-import { OrdersPrice } from '@/components/OrdersPage/OrdersPrice';
+import { OrdersPriceAmount } from '@/components/OrdersPage/OrdersPriceAmount';
 import { useOrderdDeleteAction } from '@/hooks/client-actions';
 import { toggleCollapse } from '@/redux/slices/ordersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
@@ -28,6 +28,14 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
       setIsOpen(false);
     }
   }, [isSuccess]);
+
+  const ProductsCount = () => (
+    <div className='flex flex-col pl-5'>
+      <p className='text-lg'>{order.attributes.products.data.length}</p>
+      <p className='text-xs text-[#9fb0b7]'>Products</p>
+    </div>
+  );
+
   return (
     <tr className={'bg-white relative [&>td]:!p-2'}>
       <td className='rounded-l-lg'>
@@ -54,10 +62,7 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
           >
             <TfiMenuAlt className='w-full h-full text-gray-500' />
           </div>
-          <div className='flex flex-col pl-5'>
-            <h1 className='text-lg'>{order.attributes.products.data.length}</h1>
-            <p className='text-xs text-[#9fb0b7]'>Products</p>
-          </div>
+          <ProductsCount />
         </div>
       </td>
 
@@ -74,7 +79,7 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
       {!active && (
         <>
           <td>
-            <OrdersPrice products={order.attributes.products.data} />
+            <OrdersPriceAmount products={order.attributes.products.data} />
           </td>
           <td className='rounded-r-lg'>
             <IoTrashSharp
@@ -88,13 +93,8 @@ export const OrdersListItem = ({ order }: { order: TOrdersAttributes }) => {
               handler={() => removeOrderById({ id: order.id })}
             >
               <div className='flex items-center justify-start gap-2'>
-                <p className=''>{order.attributes.title}</p>
-                <div className='flex flex-col pl-5'>
-                  <h1 className='text-lg'>
-                    {order.attributes.products.data.length}
-                  </h1>
-                  <p className='text-xs text-[#9fb0b7]'>Products</p>
-                </div>
+                <p>{order.attributes.title}</p>
+                <ProductsCount />
               </div>
             </Alert>
           </td>

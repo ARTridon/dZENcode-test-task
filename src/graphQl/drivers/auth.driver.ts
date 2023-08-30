@@ -43,22 +43,6 @@ export const auth = {
       variables,
     });
   },
-  me: ({ jwt }: { jwt: string }) => {
-    const query = gql`
-      query {
-        me {
-          id
-          email
-          jwt
-        }
-      }
-    `;
-
-    return graphQLClient({
-      jwt: jwt,
-      gql: query,
-    });
-  },
   getAvatar: ({ jwt, id }: { jwt: string; id: string }) => {
     const query = gql`
       query avatar($id: ID!) {

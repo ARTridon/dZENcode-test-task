@@ -2,19 +2,10 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import { Api } from '@/graphQl';
-import { queryClient } from '@/lib/queryClient';
+import { authAction } from '@/hooks/server-actions';
+import { TLoginResponse, typeAuthValidationSchema } from '@/types/authType';
 
 const { NEXTAUTH_SECRET } = process.env;
-
-interface LoginResponse {
-  jwt: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  id: string;
-}
 
 declare module 'next-auth' {
   interface Session {
@@ -43,18 +34,18 @@ export const authOptions: NextAuthOptions = {
         identifier: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      // @ts-ignore
       async authorize(
-        credentials: { identifier: string; password: string } | null
+        credentials: typeAuthValidationSchema | null
       ): Promise<null | { jwt: string; email: string }> {
         if (!credentials) return null;
 
         try {
           const { identifier, password } = credentials;
-          const { login }: { login: LoginResponse } =
-            await queryClient.fetchQuery(['login'], () =>
-              Api.auth.login({ identifier, password })
-            );
+          const {
+            login,
+          }: {
+            login: TLoginResponse;
+          } = authAction({ identifier, password });
 
           return {
             jwt: login.jwt,

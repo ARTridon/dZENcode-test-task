@@ -1,23 +1,33 @@
 'use client';
 
-import React from 'react';
+import { type FC } from 'react';
 
 import { ProductsRow } from '@/components/ProductsPage/ProductsRow';
 import { useProductsGetAction } from '@/hooks/client-actions';
+import { TProductsData } from '@/types/productsType';
 
-export const ProductsTable = () => {
+type TProductsTableProps = {
+  products?: TProductsData[] | undefined;
+  shortView?: boolean;
+};
+
+export const ProductsTable: FC<TProductsTableProps> = ({
+  products,
+  shortView,
+}) => {
   const { data, isFetched } = useProductsGetAction();
 
+  const productsData =
+    isFetched && !!products ? products! : data?.products?.data;
+
   return (
-    <div>
-      <table className='border-spacing-y-2 border-separate table-auto w-full'>
-        <tbody>
-          {isFetched &&
-            data?.products?.data.map((p, i) => (
-              <ProductsRow key={p.id} product={p} index={i} />
-            ))}
-        </tbody>
-      </table>
-    </div>
+    <table className='border-spacing-y-2 border-separate table-auto w-full'>
+      <tbody>
+        {isFetched &&
+          productsData?.map((p) => (
+            <ProductsRow key={p.id} product={p} shortView={shortView} />
+          ))}
+      </tbody>
+    </table>
   );
 };

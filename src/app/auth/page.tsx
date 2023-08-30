@@ -3,23 +3,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import z from 'zod';
 
-const authValidationSchema = z.object({
-  identifier: z.string().email({
-    message: 'Please enter a valid email',
-  }),
-  password: z
-    .string()
-    .nonempty({
-      message: 'Please enter a password',
-    })
-    .min(8, {
-      message: 'Password must be at least 8 characters',
-    }),
-});
-
-type typeAuthValidationSchema = z.infer<typeof authValidationSchema>;
+import {
+  authValidationSchema,
+  typeAuthValidationSchema,
+} from '@/types/authType';
+import { Button } from '@/ui/Button';
 
 const AuthPage = () => {
   const {
@@ -67,12 +56,12 @@ const AuthPage = () => {
           </span>
         )}
 
-        <button
-          className='mt-6 bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-full'
+        <Button
+          className='w-full mt-4 bg-blue-600/80 text-white hover:bg-blue-600'
           type='submit'
         >
           Sign In
-        </button>
+        </Button>
       </form>
     </section>
   );

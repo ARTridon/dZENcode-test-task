@@ -1,6 +1,10 @@
 import { TProductsData } from '@/types/productsType';
 
-export const OrdersPrice = ({ products }: { products: TProductsData[] }) => {
+export const OrdersPriceAmount = ({
+  products,
+}: {
+  products: TProductsData[];
+}) => {
   const { UAH, USD } = products.reduce(
     (acc, item) => {
       const price = item.attributes.price;

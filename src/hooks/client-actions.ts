@@ -49,9 +49,13 @@ export const useProductDeleteAction = () => {
     ({ id }: { id: string }) =>
       Api.products.delete({ id, jwt: session?.jwt as string }),
     {
-      onSuccess: async() => {
-        await queryCache.invalidateQueries({ queryKey: ['products', session?.jwt] });
-        await queryCache.invalidateQueries({ queryKey: ['orders', session?.jwt] });
+      onSuccess: async () => {
+        await queryCache.invalidateQueries({
+          queryKey: ['products', session?.jwt],
+        });
+        await queryCache.invalidateQueries({
+          queryKey: ['orders', session?.jwt],
+        });
       },
       onError: (error) => console.log(error),
     }
@@ -66,9 +70,13 @@ export const useOrderdDeleteAction = () => {
     ({ id }: { id: string }) =>
       Api.orders.deleteOrder({ id, jwt: session?.jwt as string }),
     {
-      onSuccess: async() => {
-        await queryCache.invalidateQueries({ queryKey: ['products', session?.jwt] });
-        await queryCache.invalidateQueries({ queryKey: ['orders', session?.jwt] });
+      onSuccess: async () => {
+        await queryCache.invalidateQueries({
+          queryKey: ['products', session?.jwt],
+        });
+        await queryCache.invalidateQueries({
+          queryKey: ['orders', session?.jwt],
+        });
       },
       onError: (error) => console.log(error),
     }

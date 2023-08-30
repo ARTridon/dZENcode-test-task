@@ -15,13 +15,12 @@ export const RefreshWraper = ({ children }: TRefreshWraper) => {
   const pathname = usePathname();
   const { push } = useRouter();
 
-  
   const { data: session, status } = useSession();
   useEffect(() => {
-    if (status === 'authenticated'&& pathname === '/auth') {
+    if (status === 'authenticated' && pathname === '/auth') {
       push('/orders');
     }
-    if (status === 'unauthenticated'&& pathname !== '/auth') {
+    if (status === 'unauthenticated' && pathname !== '/auth') {
       push('/auth');
     }
   }, [pathname, session, status]);

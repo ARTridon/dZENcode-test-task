@@ -24,7 +24,7 @@ export const ProductsFilter = () => {
   return (
     <div className='flex gap-5'>
       <div className='flex items-center'>
-        <p className='text-[#859ca7] text-sm'>Type:</p>
+        <p className='text-[#859ca7] text-sm mr-3'>Type:</p>
         <DropDown
           afretChange={(value) => {
             if (value === 'All') {
