@@ -46,7 +46,7 @@ export const OrdersListItem:FC<TOrdersListItemProps> = ({ order }) => {
         'bg-white relative [&>td]:!p-2  [&>td]:border-t [&>td]:border-b [&>td]:border-gray-300'
       }
     >
-      <td className='rounded-l-lg border-l-2'>
+      <td className='rounded-l border-l-2'>
         {!active && (
           <h3 className='underline tracking-widest line-clamp-2 text-ellipsis '>
             {order.attributes.title}
@@ -89,7 +89,7 @@ export const OrdersListItem:FC<TOrdersListItemProps> = ({ order }) => {
           <td>
             <OrdersPriceAmount products={order.attributes.products.data} />
           </td>
-          <td className='rounded-r-lg  border-r-2'>
+          <td className='rounded-r  border-r-2'>
             <IoTrashSharp
               className='w-4 h-4 cursor-pointer text-gray-500'
               onClick={() => setIsOpen(true)}
@@ -110,11 +110,11 @@ export const OrdersListItem:FC<TOrdersListItemProps> = ({ order }) => {
       )}
 
       {active && (
-        <td className='rounded-r-lg relative bg-white  border-r-2'>
+        <td className='rounded-r relative bg-white  border-r-2'>
           &nbsp;
           {orderId === order.id && (
-            <div className='absolute top-0 bottom-0 -right-0.5 w-10 flex items-center justify-center p-3 bg-gray-500 rounded-r-md'>
-              <IoIosArrowForward className='text-white w-6 h-6 ' />
+            <div className='absolute top-0 bottom-0 -right-0.5 w-10 flex items-center justify-center p-1 bg-gray-300 rounded-r'>
+              <IoIosArrowForward className='text-white w-10 h-10' />
             </div>
           )}
         </td>
